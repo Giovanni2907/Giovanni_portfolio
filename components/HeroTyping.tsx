@@ -79,10 +79,10 @@ export default function HeroTyping({
   const nameParts = name.slice(0, nameIndex).split(/(anni|celo)/);
 
   return (
-    <h1 className="items-center font-extralight min-h-[280px] flex flex-col justify-start">
+    <h1 className="font-roboto items-center font-extralight min-h-[280px] flex flex-col justify-start">
       {showHello && (
         <>
-          <span className="text-3xl text-zinc-600 dark:text-zinc-400">
+          <span className="text-xl md:text-xl text-zinc-500 dark:text-zinc-400 -mb-4">
             {hello.slice(0, helloIndex)}
             {showHelloCaret && (
               <span className="ml-1 inline-block h-[1em] w-0.5 translate-y-px bg-zinc-600 dark:bg-zinc-400 animate-pulse" />
@@ -93,7 +93,7 @@ export default function HeroTyping({
       )}
       
       {showName && (
-        <span className="text-6xl font-semibold tracking-tight leading-tight">
+        <span className="text-7xl md:text-6xl font-extrabold tracking-tight leading-tight">
           {nameParts.map((part, idx) =>
             part === 'anni' || part === 'celo' ? (
               <span key={idx} className="bg-linear-to-r from-[#e76f38] to-[#e76f38] bg-clip-text text-transparent">
@@ -111,7 +111,7 @@ export default function HeroTyping({
       )}
       
       {showRole && (
-        <span className="text-4xl font-medium text-zinc-700 dark:text-zinc-300">
+        <span className="text-2xl md:text-3xl font-medium text-zinc-700 dark:text-zinc-300">
           {role.slice(0, roleIndex)}
           {showRoleCaret && (
             <span className="ml-2 inline-block h-[1.1em] w-0.5 translate-y-px bg-zinc-700 dark:bg-zinc-300 animate-pulse" />
