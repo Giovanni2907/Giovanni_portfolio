@@ -113,10 +113,40 @@
 }
 
 @layer base {
+  html { scroll-behavior: smooth; }
   * {
     @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
+    font-optical-sizing: auto;
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-foreground font-semibold tracking-tight;
+  }
+  p, li, span, small {
+    @apply text-muted-foreground leading-relaxed;
+  }
+  a {
+    @apply text-foreground transition-colors font-medium;
+  }
+  a:hover {
+    @apply text-foreground;
+    color: #E4B9A5;
+  }
+  small, .eyebrow {
+    @apply uppercase tracking-wider text-xs text-muted-foreground;
+  }
+  strong {
+    @apply font-semibold;
+  }
+}
+
+@layer components {
+  .site-container {
+    @apply w-full mx-auto max-w-screen-2xl px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16;
   }
 }

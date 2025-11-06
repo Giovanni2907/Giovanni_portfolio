@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Menu from "@/components/menu";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { LanguageProvider } from "@/components/LanguageProvider";
+import Script from "next/script";
 
 import { Inter } from "next/font/google";
 
@@ -19,15 +21,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.style} ${inter.style} antialiased`}
-      >
+      <body className={`${inter.className} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <div className="flex flex-col justify-between mt-10 m-25">
-          <Menu />
-          {children}
-          </div>
+          <LanguageProvider>
+            <div className="flex flex-col">
+              <Menu />
+              <div className="site-container mt-10">
+                {children}
+              </div>
+            </div>
+          </LanguageProvider>
         </ThemeProvider>
+        <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" strategy="afterInteractive" />
       </body>
     </html>
   );
