@@ -33,39 +33,37 @@ export default function Menu() {
     };
 
     useEffect(() => {
-        const sectionIds = ['accueil', 'about', 'projet', 'service', 'contact'];
-        const elements = sectionIds
-            .map((id) => document.getElementById(id))
-            .filter((el): el is HTMLElement => !!el);
-
-        if (elements.length === 0) return;
-
-        const scrollContainer = document.querySelector('main[data-scroll-container]');
+        const sections = document.querySelectorAll("section[id]")
+    
         const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        setActiveId(entry.target.id);
-                    }
-                });
-            },
-            { root: (scrollContainer as Element) || null, rootMargin: '-40% 0px -50% 0px', threshold: [0.5] }
-        );
-
-        elements.forEach((el) => observer.observe(el));
-        return () => observer.disconnect();
-    }, []);
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                setActiveId(entry.target.id)
+              }
+            })
+          },
+          { threshold: 0.5 } // visible à moitié = actif
+        )
+    
+        sections.forEach((section) => observer.observe(section))
+    
+        return () => {
+          sections.forEach((section) => observer.unobserve(section))
+        }
+      }, [])
     return (
         <div className='sticky top-0 z-50 w-full bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-border'>
         <div className='site-container'>
         {isDesktop ? <div className=' flex justify-between items-center h-18'>
             <h1 className='text-4xl text-foreground font-bold'>Gio<span className=' text-[#E4B9A5] font-bold'>Portfolio</span> </h1>
             <div className='flex items-center gap-8 font-semibold text-foreground/80 text-[18px] '>
-                <Link href="/#accueil" onClick={(e)=>handleNav(e,'accueil')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='accueil' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.home}</Link>
-                <Link href="/#about" onClick={(e)=>handleNav(e,'about')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='about' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.about}</Link>
-                <Link href="/#projet" onClick={(e)=>handleNav(e,'projet')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='projet' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.projects}</Link>
-                <Link href="/#service" onClick={(e)=>handleNav(e,'service')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='service' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.services}</Link>
-                <Link href="/#contact" onClick={(e)=>handleNav(e,'contact')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='contact' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.contact}</Link>
+                <Link href="/page#accueil" onClick={(e)=>handleNav(e,'accueil')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='accueil' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.home}</Link>
+                <Link href="/page#about" onClick={(e)=>handleNav(e,'about')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='about' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.about}</Link>
+                <Link href="/page#competence" onClick={(e)=>handleNav(e,'competence')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='competence' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.skills}</Link>
+                <Link href="/page#projet" onClick={(e)=>handleNav(e,'projet')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='projet' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.projects}</Link>
+                <Link href="/page#service" onClick={(e)=>handleNav(e,'service')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='service' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.services}</Link>
+                <Link href="/page#contact" onClick={(e)=>handleNav(e,'contact')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='contact' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.contact}</Link>
 
             </div>
             <div className='flex items-center gap-2'>
@@ -89,6 +87,7 @@ export default function Menu() {
                     <div className='flex flex-col gap-4'>
                         <Link href="#accueil" onClick={(e)=>handleNav(e,'accueil')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='accueil' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.home}</Link>
                         <Link href="#about" onClick={(e)=>handleNav(e,'about')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='about' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.about}</Link>
+                        <Link href="#competence" onClick={(e)=>handleNav(e,'competence')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='competence' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.skills}</Link>
                         <Link href="#projet" onClick={(e)=>handleNav(e,'projet')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='projet' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.projects}</Link>
                         <Link href="#service" onClick={(e)=>handleNav(e,'service')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='service' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.services}</Link>
                         <Link href="#contact" onClick={(e)=>handleNav(e,'contact')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='contact' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.contact}</Link>

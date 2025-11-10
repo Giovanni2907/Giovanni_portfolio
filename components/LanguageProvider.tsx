@@ -8,6 +8,7 @@ type TranslationDict = {
   nav: {
     home: string;
     about: string;
+    skills: string;
     projects: string;
     services: string;
     contact: string;
@@ -24,6 +25,49 @@ type TranslationDict = {
     heading: string;
     lines: string[];
   };
+  skills: {
+    title: string;
+    languages: string;
+    frameworks: string;
+    tools: string;
+  };
+  projects: {
+    title: string;
+    viewProject: string;
+    viewCode: string;
+  };
+  services: {
+    title: string;
+    introduction: string;
+    finalMessage: string;
+    items: Array<{
+      title: string;
+      description: string;
+    }>;
+  };
+  contact: {
+    title: string;
+    subtitle: string;
+    name: string;
+    email: string;
+    message: string;
+    send: string;
+    sending: string;
+    success: string;
+    error: string;
+      info: {
+        title: string;
+        phoneLabel: string;
+        locationLabel: string;
+        email: string;
+        phone: string;
+        location: string;
+      };
+  };
+  footer: {
+    rights: string;
+    madeWith: string;
+  };
 };
 
 const translations: Record<Locale, TranslationDict> = {
@@ -31,6 +75,7 @@ const translations: Record<Locale, TranslationDict> = {
     nav: {
       home: 'Accueil',
       about: 'A propos',
+      skills: 'Compétences',
       projects: 'Projet',
       services: 'Services',
       contact: 'Contact',
@@ -46,17 +91,72 @@ const translations: Record<Locale, TranslationDict> = {
       title: 'A propos',
       heading: 'Qui suis-je ?',
       lines: [
+        "_RAJAONARISON Notahinjanahary Marcelo Giovanni",
         "_ Développeur full‑stack passionné par le développement web et mobile",
-        "_ J’aime transformer des idées en produits élégants et fiables pour satisfaires mes besoins personnels et celles du client.",
+        "_ J'aime transformer des idées en produits élégants et fiables pour satisfaires mes besoins personnels et celles du client.",
         "_ Passionné par l'informatique, je veux réussir dans la vie grace à cette passion",
         "_ Stack préférée: TypeScript, React/Next.js,React Native, Laravel et Tailwind CSS.",
       ],
+    },
+    skills: {
+      title: 'Mes Compétences',
+      languages: 'Langages maîtrisés',
+      frameworks: 'Frameworks & Librairies',
+      tools: 'Outils & Technologies',
+    },
+    projects: {
+      title: 'Mes Projets',
+      viewProject: 'Voir le projet',
+      viewCode: 'Voir le code',
+    },
+    services: {
+      title: 'Mes Services',
+      introduction: 'J\'aide les entreprises et particuliers à concevoir des solutions web performantes et esthétiques.',
+      finalMessage: 'Chaque projet est une collaboration : je vous aide à transformer vos idées en produits digitaux performants.',
+      items: [
+        {
+          title: 'Développement Web complet',
+          description: 'Création de sites web modernes, performants et responsives adaptés à vos besoins.',
+        },
+        {
+          title: 'Applications sur mesure',
+          description: 'Développement d\'applications mobiles adaptées à vos besoins spécifiques et à votre activité.',
+        },
+        {
+          title: 'Déploiement & Maintenance',
+          description: 'Gestion du projet du début jusqu\'à sa mise en ligne.',
+        },
+      ],
+    },
+    contact: {
+      title: 'Contactez-moi',
+      subtitle: 'Une question ? Un projet ? N\'hésitez pas à me contacter !',
+      name: 'Nom',
+      email: 'Email',
+      message: 'Message',
+      send: 'Envoyer',
+      sending: 'Envoi en cours...',
+      success: 'Message envoyé avec succès !',
+      error: 'Une erreur est survenue. Veuillez réessayer.',
+      info: {
+        title: 'Informations de contact',
+        phoneLabel: 'Téléphone',
+        locationLabel: 'Localisation',
+        email: 'steewygio@gmail.com',
+        phone: '+261 34 68 442 49',
+        location: 'Antananarivo, Madagascar',
+      },
+    },
+    footer: {
+      rights: 'Tous droits réservés',
+      madeWith: 'Fait avec',
     },
   },
   en: {
     nav: {
       home: 'Home',
       about: 'About',
+      skills: 'Skills',
       projects: 'Projects',
       services: 'Services',
       contact: 'Contact',
@@ -76,6 +176,63 @@ const translations: Record<Locale, TranslationDict> = {
         'I turn ideas into elegant, reliable products.',
         'Favorite stack: TypeScript, React/Next.js, Node, and Tailwind CSS.',
       ],
+    },
+    skills: {
+      title: 'My Skills',
+      languages: 'Languages',
+      frameworks: 'Frameworks & Libraries',
+      tools: 'Tools & Technologies',
+    },
+    projects: {
+      title: 'My Projects',
+      viewProject: 'View Project',
+      viewCode: 'View Code',
+    },
+    services: {
+      title: 'My Services',
+      introduction: 'I help businesses and individuals design performant and aesthetic web solutions.',
+      finalMessage: 'Every project is a collaboration: I help you transform your ideas into performant digital products.',
+      items: [
+        {
+          title: 'Web Development',
+          description: 'Creation of modern, performant and responsive websites adapted to your needs.',
+        },
+        {
+          title: 'Custom Applications',
+          description: 'Development of web applications adapted to your specific needs and activity.',
+        },
+        {
+          title: 'Interface Design (UI/UX)',
+          description: 'Design of fluid and aesthetic user experiences for optimal navigation.',
+        },
+        {
+          title: 'Maintenance & Optimization',
+          description: 'Improvement of speed, SEO and technical follow-up to guarantee the best performances.',
+        },
+      ],
+    },
+    contact: {
+      title: 'Contact Me',
+      subtitle: 'Have a question? A project? Don\'t hesitate to contact me!',
+      name: 'Name',
+      email: 'Email',
+      message: 'Message',
+      send: 'Send',
+      sending: 'Sending...',
+      success: 'Message sent successfully!',
+      error: 'An error occurred. Please try again.',
+      info: {
+        title: 'Contact Information',
+        phoneLabel: 'Phone',
+        locationLabel: 'Location',
+        email: 'giovanni.marcelo@example.com',
+        phone: '+261 34 XX XX XXX',
+        location: 'Antananarivo, Madagascar',
+      },
+    },
+    footer: {
+      rights: 'All rights reserved',
+      madeWith: 'Made with',
     },
   },
 };
