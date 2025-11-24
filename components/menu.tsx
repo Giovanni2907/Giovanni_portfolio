@@ -1,27 +1,26 @@
-'use client';
+"use client";
 
-import { useMediaQuery } from '@/hooks/use-media-query';
-import { Drawer,
-    DrawerContent,
-    DrawerHeader,
-    DrawerTrigger,
-    DrawerTitle,
-    
- } from './ui/drawer';
-
-import { MenuIcon } from 'lucide-react';
+import { MenuIcon, X } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { Button } from './ui/button';
 import { ModeToggle } from "@/components/ThemeToggle";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import { useLanguage } from "@/components/LanguageProvider";
 
 export default function Menu() {
-    const isDesktop = useMediaQuery('(min-width: 768px)');
     const linkHover = 'relative inline-block after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-[#E4B9A5] after:transition-all after:duration-300 hover:after:w-full';
-    const [activeId, setActiveId] = useState<string>('accueil');
     const { dict } = useLanguage();
+    const [activeId, setActiveId] = useState<string>('accueil');
+    const [isMobileOpen, setIsMobileOpen] = useState(false);
+
+    const navItems = [
+        { id: 'accueil', label: dict.nav.home },
+        { id: 'about', label: dict.nav.about },
+        { id: 'competence', label: dict.nav.skills },
+        { id: 'projet', label: dict.nav.projects },
+        { id: 'service', label: dict.nav.services },
+        { id: 'contact', label: dict.nav.contact },
+    ];
 
     const handleNav = (event: React.MouseEvent, id: string) => {
         event.preventDefault();
@@ -29,78 +28,97 @@ export default function Menu() {
         if (el) {
             el.scrollIntoView({ behavior: 'smooth', block: 'start' });
             setActiveId(id);
+            setIsMobileOpen(false);
         }
     };
 
     useEffect(() => {
-        const sections = document.querySelectorAll("section[id]")
-    
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                setActiveId(entry.target.id)
-              }
-            })
-          },
-          { threshold: 0.5 } // visible à moitié = actif
-        )
-    
-        sections.forEach((section) => observer.observe(section))
-    
-        return () => {
-          sections.forEach((section) => observer.unobserve(section))
-        }
-      }, [])
-    return (
-        <div className='sticky top-0 z-50 w-full bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-border'>
-        <div className='site-container'>
-        {isDesktop ? <div className=' flex justify-between items-center h-18'>
-            <h1 className='text-4xl text-foreground font-bold'>Gio<span className=' text-[#E4B9A5] font-bold'>Portfolio</span> </h1>
-            <div className='flex items-center gap-8 font-semibold text-foreground/80 text-[18px] '>
-                <Link href="/page#accueil" onClick={(e)=>handleNav(e,'accueil')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='accueil' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.home}</Link>
-                <Link href="/page#about" onClick={(e)=>handleNav(e,'about')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='about' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.about}</Link>
-                <Link href="/page#competence" onClick={(e)=>handleNav(e,'competence')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='competence' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.skills}</Link>
-                <Link href="/page#projet" onClick={(e)=>handleNav(e,'projet')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='projet' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.projects}</Link>
-                <Link href="/page#service" onClick={(e)=>handleNav(e,'service')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='service' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.services}</Link>
-                <Link href="/page#contact" onClick={(e)=>handleNav(e,'contact')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='contact' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.contact}</Link>
+        const sections = document.querySelectorAll("section[id]");
 
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        setActiveId(entry.target.id);
+                    }
+                });
+            },
+            { threshold: 0.5 }
+        );
+
+        sections.forEach((section) => observer.observe(section));
+
+        return () => {
+            sections.forEach((section) => observer.unobserve(section));
+        };
+    }, []);
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth >= 768) {
+                setIsMobileOpen(false);
+            }
+        };
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    return (
+        <nav className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur">
+            <div className="site-container flex items-center justify-between gap-4 py-4">
+                <a href="/#accueil" className="text-2xl font-bold text-foreground md:text-3xl" onClick={(e) => handleNav(e, 'accueil')}>
+                    Gio<span className="text-[#E4B9A5]">Portfolio</span>
+                </a>
+
+                <div className="hidden items-center gap-8 md:flex">
+                    {navItems.map(({ id, label }) => (
+                        <Link
+                            key={id}
+                            href={`/#${id}`}
+                            onClick={(e) => handleNav(e, id)}
+                            className={`${linkHover} text-base md:text-lg hover:text-[#E4B9A5] text-gray-700 dark:text-gray-300 tracking-wide font-medium ${
+                                activeId === id ? 'after:w-full text-[#E4B9A5]' : ''
+                            }`}
+                        >
+                            {label}
+                        </Link>
+                    ))}
+                </div>
+
+                <div className="flex items-center gap-3">
+                    <div className="hidden items-center gap-2 md:flex">
+                        <LanguageToggle />
+                        <ModeToggle />
+                    </div>
+                    <button
+                        type="button"
+                        className="inline-flex items-center justify-center rounded-full border border-border p-2 md:hidden"
+                        onClick={() => setIsMobileOpen((prev) => !prev)}
+                        aria-label="Toggle navigation"
+                    >
+                        {isMobileOpen ? <X className="h-5 w-5" /> : <MenuIcon className="h-5 w-5" />}
+                    </button>
+                </div>
             </div>
-            <div className='flex items-center gap-2'>
-            <LanguageToggle />
-            <ModeToggle />
+
+            <div className={`md:hidden ${isMobileOpen ? 'max-h-screen' : 'max-h-0'} overflow-hidden transition-[max-height] duration-300`}>
+                <div className="site-container flex flex-col gap-4 py-4">
+                    {navItems.map(({ id, label }) => (
+                        <Link
+                            key={id}
+                            href={`/#${id}`}
+                            onClick={(e) => handleNav(e, id)}
+                            className={`text-base font-medium text-foreground ${linkHover} ${activeId === id ? 'after:w-full text-[#E4B9A5]' : ''}`}
+                        >
+                            {label}
+                        </Link>
+                    ))}
+                    <div className="flex items-center gap-4 pt-2">
+                        <LanguageToggle />
+                        <ModeToggle />
+                    </div>
+                </div>
             </div>
-        </div> 
-        : <div className='flex justify-between h-16'>
-            <Drawer direction='right'>
-                <DrawerTrigger>
-                    <div className='p-5'>
-                    <MenuIcon />
-                    </div>
-                </DrawerTrigger>
-                <DrawerContent>
-                    <DrawerHeader>
-                        <DrawerTitle className='text-center'>
-                            Menu
-                            </DrawerTitle>
-                    </DrawerHeader>
-                    <div className='flex flex-col gap-4'>
-                        <Link href="#accueil" onClick={(e)=>handleNav(e,'accueil')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='accueil' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.home}</Link>
-                        <Link href="#about" onClick={(e)=>handleNav(e,'about')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='about' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.about}</Link>
-                        <Link href="#competence" onClick={(e)=>handleNav(e,'competence')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='competence' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.skills}</Link>
-                        <Link href="#projet" onClick={(e)=>handleNav(e,'projet')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='projet' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.projects}</Link>
-                        <Link href="#service" onClick={(e)=>handleNav(e,'service')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='service' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.services}</Link>
-                        <Link href="#contact" onClick={(e)=>handleNav(e,'contact')} className={`${linkHover} hover:text-[#E4B9A5] tracking-wide font-medium ${activeId==='contact' ? 'after:w-full text-[#E4B9A5]' : ''}`}>{dict.nav.contact}</Link>
-                    </div>
-                    
-                    </DrawerContent>
-            </Drawer>
-            <div className='flex justify-center items-center gap-2 pr-3'>
-            <LanguageToggle />
-            <ModeToggle />
-                    </div>
-        </div> }
-        </div>
-        </div>
-    )
+        </nav>
+    );
 }

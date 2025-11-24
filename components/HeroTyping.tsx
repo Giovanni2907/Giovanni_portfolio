@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 
 type HeroTypingProps = {
-  hello: string;
   name: string;
   role: string;
   typingSpeedMs?: number;
@@ -23,7 +22,6 @@ type Phase =
   | 'restarting';
 
 export default function HeroTyping({
-  hello,
   name,
   role,
   typingSpeedMs = 70,
@@ -41,7 +39,7 @@ export default function HeroTyping({
 
     switch (phase) {
       case 'typing-hello':
-        if (helloIndex < hello.length) {
+        if (helloIndex ) {
           timeout = setTimeout(() => setHelloIndex(i => i + 1), typingSpeedMs);
         } else {
           timeout = setTimeout(() => setPhase('typing-name'), 300);
@@ -65,13 +63,12 @@ export default function HeroTyping({
     }
 
     return () => clearTimeout(timeout);
-  }, [phase, helloIndex, nameIndex, roleIndex, hello.length, name.length, role.length, typingSpeedMs]);
+  }, [phase, helloIndex, nameIndex, roleIndex, name.length, role.length, typingSpeedMs]);
 
   const showHello = phase === 'typing-hello' || phase === 'typing-name' || phase === 'typing-role';
   const showName = phase === 'typing-name' || phase === 'typing-role';
   const showRole = phase === 'typing-role';
   
-  const showHelloCaret = phase === 'typing-hello' && helloIndex < hello.length;
   const showNameCaret = phase === 'typing-name' && nameIndex < name.length;
   const showRoleCaret = phase === 'typing-role' && roleIndex < role.length;
 
@@ -83,17 +80,14 @@ export default function HeroTyping({
       {showHello && (
         <>
           <span className="text-xl md:text-xl text-zinc-500 dark:text-zinc-400 -mb-4">
-            {hello.slice(0, helloIndex)}
-            {showHelloCaret && (
-              <span className="ml-1 inline-block h-[1em] w-0.5 translate-y-px bg-zinc-600 dark:bg-zinc-400 animate-pulse" />
-            )}
+            
           </span>
           <br />
         </>
       )}
       
       {showName && (
-        <span className="text-7xl md:text-6xl font-extrabold tracking-tight leading-tight">
+        <span className="text-4xl md:text-7xl font-extrabold tracking-tight leading-tight">
           {nameParts.map((part, idx) =>
             part === 'anni' || part === 'celo' ? (
               <span key={idx} className="bg-linear-to-r from-[#e76f38] to-[#e76f38] bg-clip-text text-transparent">
@@ -111,7 +105,7 @@ export default function HeroTyping({
       )}
       
       {showRole && (
-        <span className="text-2xl md:text-3xl font-medium text-zinc-700 dark:text-zinc-300">
+        <span className="text-xl md:text-3xl font-medium text-zinc-700 dark:text-zinc-300">
           {role.slice(0, roleIndex)}
           {showRoleCaret && (
             <span className="ml-2 inline-block h-[1.1em] w-0.5 translate-y-px bg-zinc-700 dark:bg-zinc-300 animate-pulse" />
