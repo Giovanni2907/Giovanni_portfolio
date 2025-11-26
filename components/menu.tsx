@@ -17,7 +17,7 @@ export default function Menu() {
         { id: 'accueil', label: dict.nav.home },
         { id: 'about', label: dict.nav.about },
         { id: 'competence', label: dict.nav.skills },
-        { id: 'projet', label: dict.nav.projects },
+        { id: 'project', label: dict.nav.projects },
         { id: 'service', label: dict.nav.services },
         { id: 'contact', label: dict.nav.contact },
     ];
@@ -26,7 +26,9 @@ export default function Menu() {
         event.preventDefault();
         const el = document.getElementById(id);
         if (el) {
-            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const yOffset = -80; // Hauteur du menu sticky
+            const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({ top: y, behavior: 'smooth' });
             setActiveId(id);
             setIsMobileOpen(false);
         }
@@ -37,13 +39,20 @@ export default function Menu() {
 
         const observer = new IntersectionObserver(
             (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        setActiveId(entry.target.id);
-                    }
-                });
+                // Filtrer les sections visibles
+                const visibleSections = entries
+                    .filter(entry => entry.isIntersecting)
+                    .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+                // Mettre à jour avec la section la plus visible
+                if (visibleSections.length > 0) {
+                    setActiveId(visibleSections[0].target.id);
+                }
             },
-            { threshold: 0.5 }
+            { 
+                threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5],
+                rootMargin: '-80px 0px -50% 0px' // Compte pour le menu sticky
+            }
         );
 
         sections.forEach((section) => observer.observe(section));

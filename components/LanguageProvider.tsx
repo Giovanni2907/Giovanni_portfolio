@@ -172,6 +172,7 @@ const translations: Record<Locale, TranslationDict> = {
       title: 'About',
       heading: 'Who am I?',
       lines: [
+        "_RAJAONARISON Notahinjanahary Marcelo Giovanni",
         'Full‑stack developer focused on UX and performance.',
         'I turn ideas into elegant, reliable products.',
         'Favorite stack: TypeScript, React/Next.js, Node, and Tailwind CSS.',

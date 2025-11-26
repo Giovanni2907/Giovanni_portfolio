@@ -15,16 +15,23 @@ export default function Section({ id, children, className }: SectionProps) {
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
+    
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setVisible(true);
+            // Une fois visible, on arrête d'observer
+            observer.disconnect();
           }
         });
       },
-      { threshold: 0.3 }
+      { 
+        threshold: 0.1, // Réduit de 0.3 à 0.1 pour déclencher plus tôt
+        rootMargin: '0px 0px -100px 0px' // Déclenche avant que la section soit complètement visible
+      }
     );
+    
     observer.observe(node);
     return () => observer.disconnect();
   }, []);
@@ -33,10 +40,10 @@ export default function Section({ id, children, className }: SectionProps) {
     <section
       id={id}
       ref={ref}
-      className={`snap-start w-full py-16 sm:py-20 lg:py-24 ${className ?? ''}`}
+      className={`w-full py-12 sm:py-16 md:py-20 lg:py-24 ${className ?? ''}`}
     >
       <div
-        className={`site-container w-full transition-all duration-700 ease-out will-change-transform ${
+        className={`site-container w-full transition-all duration-700 ease-out ${
           visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
         }`}
       >
@@ -45,5 +52,3 @@ export default function Section({ id, children, className }: SectionProps) {
     </section>
   );
 }
-
-

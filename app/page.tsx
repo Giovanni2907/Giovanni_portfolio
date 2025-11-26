@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ThemeProvider } from "@/components/ThemeProvider";
+import {ThemeProvider} from "@/components/ThemeProvider";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
@@ -41,7 +41,7 @@ export default function Home() {
   const { dict } = useLanguage();
   return (
     <ThemeProvider>
-      <main className="-mt-20 flex min-h-screen flex-col gap-12 overflow-x-hidden sm:gap-16 lg:gap-20" data-scroll-container>
+      <main className="-mt-20 flex min-h-screen flex-col gap-12 overflow-x-hidden sm:gap-16 lg:gap-20">
         <Section id="accueil" className="pt-16 sm:pt-20 lg:pt-24">
           <div className="flex flex-col items-center gap-10 md:gap-6 lg:flex-row lg:items-center lg:mt-15">
           <div className="w-full max-w-xs sm:max-w-sm lg:max-w-md">
@@ -59,7 +59,7 @@ export default function Home() {
         width={250}
         height={250}
         priority
-        className=" object-cover"
+        className=" object-cover "
       />
     </motion.div>
   </div>
@@ -79,7 +79,15 @@ export default function Home() {
                 />
               </div>
               <div className="flex -mt-40 md:mt-0 w-full flex-col gap-4 sm:flex-row sm:justify-center items-center justify-center md:items-center lg:justify-center lg:-mt-30">
-                <Button className="flex md:w-50 w-60 items-center justify-center rounded-full border-2 border-zinc-200 bg-white px-6 py-4 text-base font-medium text-zinc-800 transition-all duration-200 hover:-translate-y-1 hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 sm:w-auto">
+                <Button onClick={() => {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile) {
+      window.location.href = "tel:+261346844249"; // appel direct
+    } else {
+      window.open("https://wa.me/261346844249", "_blank"); // WhatsApp
+    }
+  }}
+                className="flex md:w-50 w-60 items-center justify-center rounded-full border-2 border-zinc-200 bg-white px-6 py-4 text-base font-medium text-zinc-800 transition-all duration-200 hover:-translate-y-1 hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 sm:w-auto">
                   <Phone className="mr-2 h-4 w-4" />
                   {dict.hero.contact}
                 </Button>
@@ -201,85 +209,107 @@ export default function Home() {
             ))}
             </div>
           </Section>
-        <Section id="projet">
-          <div className="mb-10 flex flex-col items-center text-center">
-            <h2 className="text-3xl font-semibold text-[#E4B9A5] sm:text-4xl lg:text-5xl">
-                {dict.projects.title}
-              </h2>
-            <div className="mt-4 h-1 w-24 rounded-full bg-linear-to-r from-[#E4B9A5] to-[#eeb244]" />
-            </div>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
-              {[
-                {
-                  title: "Portfolio Personnel",
-                  description: "Site portfolio moderne avec support multilingue, thème sombre/clair et animations fluides.",
-                  tech: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-                  image: "/projets/portfolio.png", // <-- à personnaliser selon fichier existant
-                },
-                {
-                  title: "Gest-Livra",
-                  description: "Plateforme de gestion de livraison et de stockage de marchandises adaptée aux entreprises de vente en ligne. (dévéloppé en équipe de 3 personnes)",
-                  tech: ["Laravel", "React", "TypeScript", "Tailwind CSS", "Inertia.js", "MySQL/PHPMyAdmin"],
-                  image: "/projets/gest-livra.jpeg" // <-- à personnaliser selon fichier existant
-                },
-                {
-                  title: "Examada",
-                  description: "Projet dévéloppé lors d'un hackaton sur le thème de promouvoir l'éducation à Madagascar. Une plateforme qui permet au classe d'examen de réviser à tout moment.(dévéloppé en équipe de 4 personnes)",
-                  tech: ["Laravel", "TypeScript", "Tailwind CSS", "Inertia", "MySQL/PHPMyAdmin","React"],
-                  image: "/projets/examada.png" // <-- à personnaliser selon fichier existant
-                },
-                {
-                  title: "Projet Paint by Gio",
-                  description: "Un petit projet nommée Paint_by_Gio qui a les fonctionnalités de base du logiciel Paint_3D",
-                  tech: ["Java"],
-                  image: "/projets/paint.png" // <-- à personnaliser selon fichier existant
-                },
-                {
-                  title: "AgriNova",
-                  description: "Projet dévéloppé lors d'un hackaton sur le thème de 'Cultiver demain'. Une plateforme qui permet aux agriculeurs ou passionnés d'agriculture de maximiser les récoltes avec l'aide de l'IA.(dévéloppé en équipe de 3 personnes)",
-                  tech: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-                  image: "/projets/agrinova.png" // <-- à personnaliser selon fichier existant
-                },
-            ].map((project, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="rounded-xl border-4 border-[#E4B9A5] bg-background/70 p-6 transition-all duration-300 hover:-translate-y-2 hover:bg-background/90 hover:shadow-lg"
+          <Section id="project" className="w-full py-12 md:py-16 lg:py-20">
+  <div className="mb-10 flex flex-col items-center text-center">
+    <h2 className="text-3xl font-semibold text-[#E4B9A5] sm:text-4xl lg:text-5xl">
+      {dict.projects.title}
+    </h2>
+    <div className="mt-4 h-1 w-24 rounded-full bg-linear-to-r from-[#E4B9A5] to-[#eeb244]" />
+  </div>
+  
+  <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
+    {[
+      {
+        id: "portfolio",
+        title: "Portfolio Personnel",
+        description: "Site portfolio moderne avec support multilingue, thème sombre/clair et animations fluides.",
+        tech: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+        image: "/projets/portfolio.png",
+      },
+      {
+        id: "gest-livra",
+        title: "Gest-Livra",
+        description: "Plateforme de gestion de livraison et de stockage de marchandises adaptée aux entreprises de vente en ligne. (développé en équipe de 3 personnes)",
+        tech: ["Laravel", "React", "TypeScript", "Tailwind CSS", "Inertia.js", "MySQL/PHPMyAdmin"],
+        image: "/projets/gest-livra.jpeg"
+      },
+      {
+        id: "examada",
+        title: "Examada",
+        description: "Projet développé lors d'un hackaton sur le thème de promouvoir l'éducation à Madagascar. Une plateforme qui permet au classe d'examen de réviser à tout moment.(développé en équipe de 4 personnes)",
+        tech: ["Laravel", "TypeScript", "Tailwind CSS", "Inertia", "MySQL/PHPMyAdmin", "React"],
+        image: "/projets/examada.png"
+      },
+      {
+        id: "paint",
+        title: "Projet Paint by Gio",
+        description: "Un petit projet nommée Paint_by_Gio qui a les fonctionnalités de base du logiciel Paint_3D",
+        tech: ["Java"],
+        image: "/projets/paint.png"
+      },
+      {
+        id: "agrinova",
+        title: "AgriNova",
+        description: "Projet développé lors d'un hackaton sur le thème de CULTIVER DEMAIN. Une plateforme qui permet aux agriculteurs/passionnés par l'agriculture de maximiser ses récoltes grace à l'aide de l'IA.(développé en équipe de 3 personnes)",
+        tech: ["Laravel", "TypeScript", "Tailwind CSS", "Inertia", "MySQL/PHPMyAdmin", "React"],
+        image: "/projets/agrinova.png"
+      },
+      {
+        id: "todo-app",
+        title: "Task Manager Pro",
+        description: "Application de gestion de tâches avec authentification, partage d'équipe et notifications en temps réel.",
+        tech: ["React", "Firebase", "Material-UI"],
+        image: "/projets/examada.png"
+      },
+    ].map((project) => (
+      <motion.div
+        key={project.id}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.5 }}
+        className="flex flex-col rounded-xl border-4 border-[#E4B9A5] bg-white dark:bg-zinc-900 overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+      >
+        {project.image && (
+          <div className="relative w-full h-48 sm:h-52 md:h-56 lg:h-52 xl:h-56 overflow-hidden bg-gray-100 dark:bg-zinc-800">
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 400px"
+              className="object-cover transition-transform duration-500 hover:scale-110 p-6 lg:p-6 md:p-6 lg:radius-2xl"
+              onError={(e) => {
+                console.error(`Failed to load: ${project.image}`);
+                e.currentTarget.style.display = 'none';
+              }}
+            />
+          </div>
+        )}
+        
+        <div className="flex flex-col flex-1 p-4 sm:p-5 md:p-6">
+          <h3 className="mb-2 sm:mb-3 text-lg xs:text-xl sm:text-xl md:text-2xl lg:text-xl xl:text-2xl font-semibold text-[#eeb244] leading-tight line-clamp-2">
+            {project.title}
+          </h3>
+          
+          <p className="mb-4 flex-1 text-sm sm:text-base md:text-base lg:text-sm xl:text-base text-muted-foreground dark:text-gray-100 leading-relaxed line-clamp-3">
+            {project.description}
+          </p>
+          
+          <div className="flex flex-wrap gap-1.5 sm:gap-2">
+            {project.tech.map((tech, techIdx) => (
+              <span
+                key={techIdx}
+                className="rounded-full border border-[#E4B9A5]/30 bg-[#E4B9A5]/20 px-2 py-1 sm:px-2.5 sm:py-1 md:px-3 md:py-1.5 text-xs sm:text-xs md:text-sm font-medium text-[#E4B9A5] transition-colors hover:bg-[#E4B9A5]/30"
               >
-                {project.image && (
-                  <div className="mb-4 w-full">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      width={640}
-                      height={420}
-                      className="h-auto w-full rounded-lg border border-[#E4B9A5]/30 bg-white object-cover"
-                    />
-                  </div>
-                )}
-                <h3 className="mb-3 text-2xl font-semibold text-[#eeb244] lg:text-3xl">
-                  {project.title}
-                </h3>
-                <p className="mb-4 text-base text-muted-foreground dark:text-gray-100 md:text-lg">
-                  {project.description}
-                </p>
-                <div className="mb-2 flex flex-wrap gap-2">
-                  {project.tech.map((tech, techIdx) => (
-                    <span
-                      key={techIdx}
-                      className="rounded-full border border-[#E4B9A5]/30 bg-[#E4B9A5]/20 px-3 py-1 text-xs font-medium text-[#E4B9A5] md:text-sm"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
+                {tech}
+              </span>
             ))}
-            </div>
-          </Section>
+          </div>
+        </div>
+      </motion.div>
+    ))}
+  </div>
+</Section>
         <Section id="service">
           <div className="mb-6 flex flex-col items-center text-center">
             <h2 className="text-3xl font-semibold text-[#E4B9A5] sm:text-4xl lg:text-5xl">

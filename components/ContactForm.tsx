@@ -57,8 +57,6 @@ export default function ContactForm({ labels }: ContactFormProps) {
       setStatus("idle");
       fireworks?.start();   // 🔥 Lance les feux d’artifice
     setTimeout(() => fireworks?.stop(), 6000);
-    fireworks?.start(); 
-    setTimeout(() => fireworks?.stop(), 3000);
       form.reset();
     } catch (error) {
       console.error(error);
