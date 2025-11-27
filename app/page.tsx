@@ -91,10 +91,12 @@ export default function Home() {
                   <Phone className="mr-2 h-4 w-4" />
                   {dict.hero.contact}
                 </Button>
+                <a href="/giovanni-cv.pdf" download="CV_Giovanni.pdf">
                 <Button className="flex md:w-50 w-60 items-center justify-center rounded-full bg-linear-to-r from-[#e76f38] to-[#c4715c] px-6 py-4 text-base font-medium text-white shadow-md transition-all duration-200 hover:-translate-y-1 hover:from-[#d55a2a] hover:to-[#b35d4a] sm:w-auto">
                   <Download className="mr-2 h-4 w-4" />
                   {dict.hero.download}
                 </Button>
+                </a>
               </div>
             </div>
           </div>
@@ -253,13 +255,6 @@ export default function Home() {
         description: "Projet développé lors d'un hackaton sur le thème de CULTIVER DEMAIN. Une plateforme qui permet aux agriculteurs/passionnés par l'agriculture de maximiser ses récoltes grace à l'aide de l'IA.(développé en équipe de 3 personnes)",
         tech: ["Laravel", "TypeScript", "Tailwind CSS", "Inertia", "MySQL/PHPMyAdmin", "React"],
         image: "/projets/agrinova.png"
-      },
-      {
-        id: "todo-app",
-        title: "Task Manager Pro",
-        description: "Application de gestion de tâches avec authentification, partage d'équipe et notifications en temps réel.",
-        tech: ["React", "Firebase", "Material-UI"],
-        image: "/projets/examada.png"
       },
     ].map((project) => (
       <motion.div
