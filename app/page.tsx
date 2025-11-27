@@ -91,7 +91,7 @@ export default function Home() {
                   <Phone className="mr-2 h-4 w-4" />
                   {dict.hero.contact}
                 </Button>
-                <a href="/Giovanni-cv.pdf" download="CV_Giovanni.pdf">
+                <a href="/cv.pdf" download="cv.pdf">
                 <Button className="flex md:w-50 w-60 items-center justify-center rounded-full bg-linear-to-r from-[#e76f38] to-[#c4715c] px-6 py-4 text-base font-medium text-white shadow-md transition-all duration-200 hover:-translate-y-1 hover:from-[#d55a2a] hover:to-[#b35d4a] sm:w-auto">
                   <Download className="mr-2 h-4 w-4" />
                   {dict.hero.download}
