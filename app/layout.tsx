@@ -6,6 +6,8 @@ import { LanguageProvider } from "@/components/LanguageProvider";
 import { Toaster } from "@/components/ui/sonner";
 import Script from "next/script";
 
+import ClientLayout from "@/components/clientLayout"
+
 import { Roboto } from "next/font/google";
 
 const roboto = Roboto({
@@ -13,6 +15,7 @@ const roboto = Roboto({
   weight: ["400", "500", "700"],
   variable: "--font-roboto",
 });
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -27,18 +30,23 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body suppressHydrationWarning className={`${roboto.className} antialiased`}>
+      <ClientLayout>
+
+      
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <LanguageProvider>
             <div className="flex flex-col">
               <Menu />
               <div className="site-container mt-10">
-                {children}
+                
+                  {children}
               </div>
             </div>
           </LanguageProvider>
         </ThemeProvider>
         <Toaster />
         <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" strategy="afterInteractive" />
+        </ClientLayout>
       </body>
     </html>
   );
