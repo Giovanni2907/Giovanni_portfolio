@@ -23,6 +23,7 @@ type TranslationDict = {
   about: {
     title: string;
     heading: string;
+    intro: string;
     lines: string[];
   };
   skills: {
@@ -55,14 +56,14 @@ type TranslationDict = {
     sending: string;
     success: string;
     error: string;
-      info: {
-        title: string;
-        phoneLabel: string;
-        locationLabel: string;
-        email: string;
-        phone: string;
-        location: string;
-      };
+    info: {
+      title: string;
+      phoneLabel: string;
+      locationLabel: string;
+      email: string;
+      phone: string;
+      location: string;
+    };
   };
   footer: {
     rights: string;
@@ -90,6 +91,7 @@ const translations: Record<Locale, TranslationDict> = {
     about: {
       title: 'A propos',
       heading: 'Qui suis-je ?',
+      intro: 'Je suis un développeur web basé à Madagascar qui continue à perfectionner ses compétences pour devenir un professionnel complet du web.\n\nMon objectif : développer des solutions modernes et participer à des projets innovants, que ce soit en freelance ou en équipe.',
       lines: [
         "_RAJAONARISON Notahinjanahary Marcelo Giovanni",
         "_ Développeur full‑stack passionné par le développement web et mobile",
@@ -171,11 +173,13 @@ const translations: Record<Locale, TranslationDict> = {
     about: {
       title: 'About',
       heading: 'Who am I?',
+      intro: 'I am a web developer based in Madagascar who continues to perfect my skills to become a complete web professional.\n\nMy goal: to develop modern solutions and participate in innovative projects, whether freelance or in a team.',
       lines: [
         "_RAJAONARISON Notahinjanahary Marcelo Giovanni",
-        'Full‑stack developer focused on UX and performance.',
-        'I turn ideas into elegant, reliable products.',
-        'Favorite stack: TypeScript, React/Next.js, Node, and Tailwind CSS.',
+        "_ Full-stack developer passionate about web and mobile development",
+        "_ I love transforming ideas into elegant and reliable products to satisfy my personal needs and those of the client.",
+        "_ Passionate about computer science, I want to succeed in life thanks to this passion",
+        "_ Favorite stack: TypeScript, React/Next.js, React Native, Laravel and Tailwind CSS.",
       ],
     },
     skills: {
@@ -195,20 +199,16 @@ const translations: Record<Locale, TranslationDict> = {
       finalMessage: 'Every project is a collaboration: I help you transform your ideas into performant digital products.',
       items: [
         {
-          title: 'Web Development',
+          title: 'Complete Web Development',
           description: 'Creation of modern, performant and responsive websites adapted to your needs.',
         },
         {
           title: 'Custom Applications',
-          description: 'Development of web applications adapted to your specific needs and activity.',
+          description: 'Development of mobile applications adapted to your specific needs and activity.',
         },
         {
-          title: 'Interface Design (UI/UX)',
-          description: 'Design of fluid and aesthetic user experiences for optimal navigation.',
-        },
-        {
-          title: 'Maintenance & Optimization',
-          description: 'Improvement of speed, SEO and technical follow-up to guarantee the best performances.',
+          title: 'Deployment & Maintenance',
+          description: 'Project management from start to deployment.',
         },
       ],
     },
@@ -226,8 +226,8 @@ const translations: Record<Locale, TranslationDict> = {
         title: 'Contact Information',
         phoneLabel: 'Phone',
         locationLabel: 'Location',
-        email: 'giovanni.marcelo@example.com',
-        phone: '+261 34 XX XX XXX',
+        email: 'steewygio@gmail.com',
+        phone: '+261 34 68 442 49',
         location: 'Antananarivo, Madagascar',
       },
     },

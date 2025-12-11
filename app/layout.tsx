@@ -30,22 +30,23 @@ export default function RootLayout({
   return (
     <html lang="fr" suppressHydrationWarning translate="no">
       <body suppressHydrationWarning className={`${roboto.className} antialiased`}>
-      <ClientLayout>
+        <ClientLayout>
 
-      
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <LanguageProvider>
-            <div className="flex flex-col">
-              <Menu />
-              <div className="site-container mt-10">
-                
+
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <LanguageProvider>
+              <div id="theme-halo-overlay" className="theme-halo-overlay"></div>
+              <div className="flex flex-col">
+                <Menu />
+                <div className="site-container mt-10">
+
                   {children}
+                </div>
               </div>
-            </div>
-          </LanguageProvider>
-        </ThemeProvider>
-        <Toaster />
-        <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" strategy="afterInteractive" />
+            </LanguageProvider>
+          </ThemeProvider>
+          <Toaster />
+          <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" strategy="afterInteractive" />
         </ClientLayout>
       </body>
     </html>

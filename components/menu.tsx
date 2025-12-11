@@ -95,7 +95,7 @@ export default function Menu() {
                 </div>
 
                 <div className="flex items-center gap-3">
-                    <div className="hidden items-center gap-2 md:flex">
+                    <div className="flex items-center gap-2 md:flex">
                         <LanguageToggle />
                         <ModeToggle />
                     </div>
@@ -122,10 +122,6 @@ export default function Menu() {
                             {label}
                         </Link>
                     ))}
-                    <div className="flex items-center gap-4 pt-2">
-                        <LanguageToggle />
-                        <ModeToggle />
-                    </div>
                 </div>
             </div>
         </nav>
